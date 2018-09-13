@@ -904,6 +904,7 @@ out:
 
 static struct brd_device *brd_alloc(int i)
 {
+    SSD_DEBUG("BRD_ALLOC(%d)\n",i);
     struct brd_device *brd;
     struct gendisk *disk;
 

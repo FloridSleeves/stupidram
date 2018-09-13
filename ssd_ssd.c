@@ -72,6 +72,7 @@ static void _mem_exit(void)
 
 static Ssd *ssd_sim_init(Ssd *obj, uint ssd_size)
 {
+    SSD_DEBUG("SSD_SIM_INIT(%d)\n",ssd_size);
     uint i;
 
     obj->size = ssd_size;
@@ -114,6 +115,7 @@ static Ssd *ssd_sim_init(Ssd *obj, uint ssd_size)
 
 Ssd *ssd_sim_new(uint ssd_size)
 {
+    SSD_DEBUG("SSD_SIM_NEW(%d)\n",ssd_size);
     Ssd *obj;
     if (_mem_init(FLASHSIM_MEM_SIZE) < 0)
       return NULL;
@@ -131,6 +133,7 @@ Ssd *ssd_sim_new(uint ssd_size)
 
 void ssd_sim_free (Ssd *s)
 {
+    SSD_DEBUG("SSD_SIM_FREE\n");
     uint i;
     /* explicitly call destructors and use free
      * since we used malloc and placement new */
@@ -163,6 +166,7 @@ static uint get_channel(Address *address)
  *  request.  Remember to use the same time units as in the config file. */
 int64_t ssd_event_arrive(Ssd *s, enum event_type type, ulong logical_address, uint size, int64_t start_time)
 {
+    SSD_DEBUG("SSD_EVENT_ARRIVE(type=%d)",type);
     Event _event;
     Address _address;
     Event *event = &_event;
@@ -245,6 +249,7 @@ int64_t ssd_event_arrive(Ssd *s, enum event_type type, ulong logical_address, ui
 
 void *ssd_malloc(int x)
 {
+    SSD_DEBUG("SSD_MALLOC(%d)\n",x);
     void *p;
 #ifdef MEM_DEBUG
     if (x == 0) {
